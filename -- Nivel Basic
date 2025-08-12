@@ -1,0 +1,45 @@
+-- Boas Práticas  de SQL  
+-- Nivel Basico  -  Para  quem está  começando  
+
+--1.Evite  usar  Select  *, selecione    só   as colunas   que  precisa
+
+select *  from dbo.DimCustomer
+
+select  top 2*
+
+from dbo.DimCustomer
+
+--2.Use Where  para  filtrar   os  dados    e  evitar  para  trazer  tudo
+
+select *  from dbo.DimCustomer
+where Gender ='M'
+
+
+--3.Use comentarios  (--) para  explicar  trechos   da  consulta
+-- Atualizado em 17/12/2025
+/*
+*/
+
+
+-- 4.Organize   o  codigo   com quebras de  linha   e identação
+
+select 
+	CustomerKey,
+	EmailAddress,
+	Gender
+
+
+from  DimCustomer
+
+
+
+--5.Comece  com  consultas simples  e  va  complicando  aos poucos 
+
+
+--Exemplo: Crie   uma  tabela    que mostra  o total  de  clientes   por escolaridade  e  ordene essa tabela  do menor   o maior.
+
+select  Education,COUNT(*) as Total
+from  DimCustomer
+group by Education
+order by COUNT(*)asc
+
