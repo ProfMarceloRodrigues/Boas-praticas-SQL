@@ -1,9 +1,10 @@
 --Boas  Práticas  de SQL
 --Nivel Avançado -Para quem que  ir para um  proximo nivel
 
---1.Não use UPDATE ou  DELETE sem  where - sempre  revise 
+--1.Não use UPDATE ou  DELETE sempre  where - sempre  revise 
 
 select * from  DimCustomer
+where CustomerKey =1
 
 update DimCustomer
 set FirstName='Rodrigo'
@@ -19,20 +20,32 @@ where CustomerKey=378
 
 select top 5
 CustomerKey,
-Gender
+Gender,
 YearlyIncome
 
 from DimCustomer
 order by YearlyIncome desc
 
 --3. Separe  consultas  em blocos  reutilizaveis  com VIEWS ( quando  possivel)
-create view top100clientes as
+
 select Top 100
 FirstName,
 EmailAddress,
 YearlyIncome
 from DimCustomer
 order by  YearlyIncome desc
+
+create view top100clientes as
+select Top 100
+c.CustomerKey as 'Codigo_Cliente',
+c.YearlyIncome as 'Renda'
+
+from  DimCustomer c
+order by  YearlyIncome desc
+
+select 
+*
+from top100clientes
 
 --4. Filtrar  depois  de  agrupar  é  diferente   de  agrupar   depois  de  filtrar
 
@@ -45,10 +58,10 @@ where Gender ='M'
 group by Education
 
 select 
-Education,
+Education,Gender,
 COUNT(*) as Total
 from DimCustomer
-group by Education
+group by Education, Gender
 
 having Gender ='M'
 
@@ -66,3 +79,4 @@ select *
  from  DimProduct
  where UnitPrice >=(select AVG(UnitPrice) from DimProduct)
 
+ ---Feliz  ano pra  vocEs
