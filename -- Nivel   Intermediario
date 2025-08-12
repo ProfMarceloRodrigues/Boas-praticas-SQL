@@ -1,0 +1,59 @@
+--Boas  Práticas  de  SQL
+
+-- Nivel   Intermediario -  Para quem  já    consultas  no dia  a  dia
+
+--1 .Use  apelidos (As) para  deixar as colunas  mais legiveis  
+
+select  
+	C.CustomerKey,
+	C.CompanyName,
+	C.Gender,
+	C.Phone
+
+
+
+from  
+DimCustomer C
+
+where  C.Gender ='M'
+
+---2.  Evite usar funçoes   nas  colunas   da  clausula  where
+
+--Ruim
+select *  from DimCustomer
+where year(BirthDate)= 1980
+
+--Bom
+
+
+select * from DimCustomer
+where BirthDate between '1980/01/01' and '1980/12/31'
+
+--3.Sempre  use  LIMIT enquanto  estiver  testando  consultas
+
+select  top 2*  from DimCustomer
+
+
+-- 4 Evite OR quando puder   usar  
+
+select * from DimCustomer
+
+where Education ='Bachelors' or Education ='High School'
+
+
+select *
+
+from DimCustomer
+
+where Education in ('Bachelors','High School')
+
+--5.Cuidado com NULL em comparações.Use  IS NULL e IS NOT NULL
+
+select * from  DimCustomer
+where Phone='NULL'
+
+select * from  DimCustomer
+where Phone   iS NULL
+
+select * from  DimCustomer
+where Phone  is not null
